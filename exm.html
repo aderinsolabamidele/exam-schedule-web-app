@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Schedule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Exam Schedule</h1>
+    <form action="/add_exam" method="post">
+        <label for="exam_name">Exam Name:</label>
+        <input type="text" id="exam_name" name="exam_name" required><br><br>
+        <label for="exam_date">Exam Date:</label>
+        <input type="date" id="exam_date" name="exam_date" required><br><br>
+        <button type="submit">Add Exam</button>
+    </form>
+    <h2>Upcoming Exams</h2>
+    <ul>
+        {% for exam in exam_dates %}
+            <li>
+                <span class="exam-name">{{ exam.name }}</span>
+                <span class="exam-date">Date: {{ exam.date }}</span>
+                <span class="days-left">({{ exam.days_until_exam }} days left)</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #ddaeae;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #007bff;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+button {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.exam-name {
+    font-size: 18px;
+    color: #007bff;
+}
+
+.exam-date,
+.days-left {
+    font-size: 14px;
+    color: #666;
+}
+
+.days-left {
+    font-style: italic;
+}
+
+    </style>
+</body>
+</html>
