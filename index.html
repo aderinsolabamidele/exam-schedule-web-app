@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Schedule</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e88e5;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        form {
+            max-width: 600px;
+            background-color: white;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        form input[type="text"],
+        form input[type="date"] {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 2rem;
+            background-color: #1e88e5;
+            color: #fff;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1565c0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 2rem;
+            color: #444;
+        }
+
+        ul {
+            max-width: 800px;
+            margin: 1.5rem auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .exam-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e88e5;
+        }
+
+        .exam-date,
+        .days-left {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .days-left {
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            form, ul {
+                padding: 1rem;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            li {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Exam Schedule</h1>
+
+    <form action="/add_exam" method="post">
+        <label for="exam_name">Exam Name</label>
+        <input type="text" id="exam_name" name="exam_name" required>
+
+        <label for="exam_date">Exam Date</label>
+        <input type="date" id="exam_date" name="exam_date" required>
+
+        <button type="submit">Add Exam</button>
+    </form>
+
+    <h2>Upcoming Exams</h2>
+    <ul>
+        {% for exam in exam_dates %}
+            <li>
+                <span class="exam-name">{{ exam.name }}</span>
+                <span class="exam-date">Date: {{ exam.date }}</span>
+                <span class="days-left">({{ exam.days_until_exam }} days left)</span>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
