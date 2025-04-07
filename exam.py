@@ -8,7 +8,7 @@ exam_dates = []
 
 @app.route('/')
 def index():
-    return render_template('exm.html', exam_dates=exam_dates)
+    return render_template('index.html', exam_dates=exam_dates)
 
 @app.route('/add_exam', methods=['POST'])
 def add_exam():
